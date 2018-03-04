@@ -1,0 +1,39 @@
+"use strict";
+exports.__esModule = true;
+var readline = require('readline');
+var symbols = require('./symbols');
+var check = require('./check');
+var rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+var symbolNameObject = symbols.symAndName;
+var main = check.check;
+function startFunction() {
+    rl.question("\nPlease enter a string: ", function (userInput) {
+        var sanitisedInput = userInput.replace(/ +/g, "");
+        if (/^[a-zA-Z]+$/.test(sanitisedInput)) {
+            var result = main(sanitisedInput);
+            var wordFormed = result[1];
+            if (result[0]) {
+                console.log("\n" + userInput + " is possible.\n");
+                for (var i = 0; i < wordFormed.length; i++) {
+                    wordFormed[i] = wordFormed[i].charAt(0).toUpperCase() + wordFormed[i].slice(1);
+                }
+                console.log(wordFormed.join(" ") + "\n");
+                for (var i = 0; i < wordFormed.length; i++) {
+                    console.log(wordFormed[i] + ": " + symbolNameObject[wordFormed[i]]);
+                }
+            }
+            else {
+                console.log("\n" + userInput + " is not possible.");
+            }
+            rl.close();
+        }
+        else {
+            console.log("String must be only alphabetic without any spaces! Try again.");
+            startFunction();
+        }
+    });
+}
+exports.start = startFunction;
