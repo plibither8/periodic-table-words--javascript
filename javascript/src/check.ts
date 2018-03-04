@@ -38,10 +38,8 @@ function checkFunction(str: string): [boolean, string[]] {
                         possible = true;
                         return;
                     }
-                    if (position + 2 < strlen) {
-                        position = position + 2;
-                        check(position, symlen, false);
-                    }
+                    position = position + 2;
+                    check(position, symlen, false);
                 }
 
                 break;
