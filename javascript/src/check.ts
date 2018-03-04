@@ -1,3 +1,5 @@
+declare const require: any;
+
 const symbols = require('./symbols');
 const sortedSymbols = symbols.sorted;
 
