@@ -2,138 +2,146 @@ symbolNameObject = { "Ac": "Actinium", "Ag": "Silver", "Al": "Aluminium", "Am": 
 
 sortedSymbols = {
 
-    "a": ["c", "g", "l", "m", "r", "s", "t", "u"],
-    "b": ["", "a", "e", "h", "i", "k", "r"],
-    "c": ["", "a", "d", "e", "f", "l", "m", "n", "o", "r", "s", "u"],
-    "d": ["b", "s", "y"],
-    "e": ["r", "s", "u"],
-    "f": ["", "e", "l", "m", "r"],
-    "g": ["a", "d", "e"],
-    "h": ["", "e", "f", "g", "o", "s"],
-    "i": ["", "n", "r"],
-    "k": ["", "r"],
-    "l": ["a", "i", "r", "u", "v"],
-    "m": ["c", "d", "g", "n", "o", "t"],
-    "n": ["", "a", "b", "d", "e", "h", "i", "o", "p"],
-    "o": ["", "g", "s"],
-    "p": ["", "a", "b", "d", "m", "o", "r", "t", "u"],
-    "r": ["a", "b", "e", "f", "g", "h", "n", "u"],
-    "s": ["", "b", "c", "e", "g", "i", "m", "n", "r"],
-    "t": ["a", "b", "c", "e", "h", "i", "l", "m", "s"],
-    "u": [""],
-    "v": [""],
-    "w": [""],
-    "x": ["e"],
-    "y": ["", "b"],
-    "z": ["n", "r"]
+	"a": ["c", "g", "l", "m", "r", "s", "t", "u"],
+	"b": ["", "a", "e", "h", "i", "k", "r"],
+	"c": ["", "a", "d", "e", "f", "l", "m", "n", "o", "r", "s", "u"],
+	"d": ["b", "s", "y"],
+	"e": ["r", "s", "u"],
+	"f": ["", "e", "l", "m", "r"],
+	"g": ["a", "d", "e"],
+	"h": ["", "e", "f", "g", "o", "s"],
+	"i": ["", "n", "r"],
+	"k": ["", "r"],
+	"l": ["a", "i", "r", "u", "v"],
+	"m": ["c", "d", "g", "n", "o", "t"],
+	"n": ["", "a", "b", "d", "e", "h", "i", "o", "p"],
+	"o": ["", "g", "s"],
+	"p": ["", "a", "b", "d", "m", "o", "r", "t", "u"],
+	"r": ["a", "b", "e", "f", "g", "h", "n", "u"],
+	"s": ["", "b", "c", "e", "g", "i", "m", "n", "r"],
+	"t": ["a", "b", "c", "e", "h", "i", "l", "m", "s"],
+	"u": [""],
+	"v": [""],
+	"w": [""],
+	"x": ["e"],
+	"y": ["", "b"],
+	"z": ["n", "r"]
 
 };
 
+wordFormed = []
+strlen = None
+possible = False
+
 def main(str):
 
-    str = str.lower()
-    strlen  = len(str)
-    symlen = []
-    wordFormed = []
-    possible = False
+	global wordFormed
+	global strlen
+	global possible
 
-    if ('q' in str or 'j' in str):
-        return [False, []]
+	str = str.lower()
+	strlen  = len(str)
+	symlen = []
 
-    def check(position, symlen, onlyTwo):
+	if ('q' in str or 'j' in str):
+		return [False, []]
 
-        charAt = str[position]
+	def check(position, symlen, onlyTwo):
 
-        for i in range(len(sortedSymbols[charAt])):
+		global wordFormed
+		global strlen
+		global possible
 
-            if ((sortedSymbols[charAt][i] == "" and not onlyTwo) or sortedSymbols[charAt][i] == str[position + 1]):
+		charAt = str[position]
 
-                wordFormed.append(charAt + sortedSymbols[charAt][i])
+		for i in range(len(sortedSymbols[charAt])):
 
-                if (sortedSymbols[charAt][i] == "" and not onlyTwo):
-                    symlen.append(1)
-                    if (position == strlen - 1):
-                        possible = True
-                        return;
-                    position += 1
-                    check(position, symlen, False)
-            
-            elif (sortedSymbols[charAt][i] == str[position + 1]):
-                symlen.append(2)
-                if (position == strlen - 2):
-                    possible = True;
-                    return
-                if (position + 2 < strlen):
-                    position += 2
-                    check(position, symlen, False)
-            
-            break
-        
-        origwordFormed = wordFormed[:]
+			if (sortedSymbols[charAt][i] == "" and not onlyTwo):
+				wordFormed.append(charAt + sortedSymbols[charAt][i])
+				symlen.append(1)
+				if (position == strlen - 1):
+					possible = True
+					return;
+				position += 1
+				check(position, symlen, False)
+				break
 
-        if (i == len(sortedSymbols[charAt]) - 1 and not onlyTwo and not possible):
+			if (position + 1 < strlen):
+				if (sortedSymbols[charAt][i] == str[position + 1]):
+					wordFormed.append(charAt + sortedSymbols[charAt][i])
+					symlen.append(2)
+					if (position == strlen - 2):
+						possible = True;
+						return
+					position += 2
+					check(position, symlen, False)
+					break
+		
+		origwordFormed = wordFormed[:]
 
-            if (position - 1 >= 0 and symlen[len(symlen) - 1] == 1):
-                symlen.pop()
-                wordFormed.pop()
-                check(position - 1, symlen, True)
-            
-            k = len(symlen) - 1
-            while (k >= 0 and not possible):
+		if (i == len(sortedSymbols[charAt]) - 1 and not onlyTwo and not possible):
 
-                wordFormed = origwordFormed[:]
+			if (position - 1 >= 0 and symlen[len(symlen) - 1] == 1):
+				symlen.pop()
+				wordFormed.pop()
+				check(position - 1, symlen, True)
+			
+			k = len(symlen) - 1
+			while (k >= 0 and not possible):
 
-                if (symlen[k] == 1):
+				wordFormed = origwordFormed[:]
 
-                    oneLetter = wordFormed[k]
-                    _position = 1
-                    for j in range(k):
-                        _position += symlen[j]
-                    
-                    for j in range(len(sortedSymbols[oneLetter])):
+				if (symlen[k] == 1):
 
-                        if (sortedSymbols[oneLetter][j] == str[_position and not possible]):
+					oneLetter = wordFormed[k]
+					_position = 1
+					for j in range(k):
+						_position += symlen[j]
+					
+					for j in range(len(sortedSymbols[oneLetter])):
 
-                            symlen[:k]
-                            wordFormed[:k]
-                            symlen.append(2)
-                            wordFormed.append(oneLetter + sortedSymbols[oneLetter][j])
+						if (sortedSymbols[oneLetter][j] == str[_position] and not possible):
 
-                            if (_position + 1 < strlen):
-                                _position = _position + 1
-                                check(_position, symlen, False)
-                
-                k -= 1
+							symlen = symlen[:k]
+							wordFormed = wordFormed[:k]
+							symlen.append(2)
+							wordFormed.append(oneLetter + sortedSymbols[oneLetter][j])
 
-    check(0, symlen, False)
+							if (_position + 1 < strlen):
+								_position = _position + 1
+								check(_position, symlen, False)
+				
+				k -= 1
 
-    return [possible, wordFormed]
+	check(0, symlen, False)
+
+	return [possible, wordFormed]
 
 def start():
 
-    userInput = input("\nPlease enter a string: ")
-    sanitisedInput = userInput.replace(" ", "")
+	userInput = input("\nPlease enter a string: ")
+	sanitisedInput = userInput.replace(" ", "")
 
-    if(sanitisedInput.isalpha()):
+	if(sanitisedInput.isalpha()):
 
-        result = main(sanitisedInput)
-        wordFormed = result[1]
+		result = main(sanitisedInput)
+		wordFormed = result[1]
 
-        if(result[0]):
+		if(result[0]):
 
-            print("\n" + userInput + " is possible.\n")
-            for i in range(len(wordFormed)):
-                wordFormed[i] = wordFormed[i].title()
-            print(" ".join(wordFormed))
-            for i in range(len(wordFormed)):
-                print(wordFormed[i] + ": " + symbolNameObject[wordFormed[i]])
-    
-        else:
-            print("\n" + userInput + " is not possible.")
-            exit()
-    
-    else:
-        print("String must be only alphabetic! Try again.")
-        start()
+			print("\n" + userInput + " is possible.\n")
+			for i in range(len(wordFormed)):
+				wordFormed[i] = wordFormed[i].title()
+			print(" ".join(wordFormed) + "\n")
+			for i in range(len(wordFormed)):
+				print(wordFormed[i] + ": " + symbolNameObject[wordFormed[i]])
+	
+		else:
+			print("\n" + userInput + " is not possible.")
+			exit()
+	
+	else:
+		print("String must be only alphabetic! Try again.")
+		start()
 
 start()
