@@ -53,6 +53,8 @@ def main(str):
 		global possible
 
 		charAt = str[position]
+		
+		print(wordFormed)
 
 		for i in range(len(sortedSymbols[charAt])):
 
