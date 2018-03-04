@@ -1,0 +1,18 @@
+{
+  "name": "periodic-table-words",
+  "version": "1.0.0",
+  "description": "Program to determine whether a given string can be formed by some combination of the symbols of elements of the periodic table.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/plibither8/periodic-table-words/tree/master/javascript"
+  },
+  "author": "Mihir Chaturvedi",
+  "license": "ISC",
+  "devDependencies": {
+    "console.table": "^0.10.0"
+  }
+}
