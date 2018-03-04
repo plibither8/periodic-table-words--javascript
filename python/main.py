@@ -107,7 +107,7 @@ def main(str):
 
     check(0, symlen, False)
 
-    return [possible]
+    return [possible, wordFormed]
 
 def start():
 
