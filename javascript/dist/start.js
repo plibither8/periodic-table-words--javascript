@@ -31,7 +31,7 @@ function startFunction() {
             rl.close();
         }
         else {
-            console.log("String must be only alphabetic without any spaces! Try again.");
+            console.log("String must be only alphabetic! Try again.");
             startFunction();
         }
     });
