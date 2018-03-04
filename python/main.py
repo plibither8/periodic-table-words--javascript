@@ -111,7 +111,7 @@ def main(str):
 
 def start():
 
-    userInput = raw_input("\nPlease enter a string: ")
+    userInput = input("\nPlease enter a string: ")
     sanitisedInput = userInput.replace(" ", "")
 
     if(sanitisedInput.isalpha()):
