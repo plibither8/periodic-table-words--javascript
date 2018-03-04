@@ -14,6 +14,7 @@ function checkFunction(str: string): [boolean, string[]] {
     if (str.indexOf("q") > -1 || str.indexOf("j") > -1) return ([false, []]);
 
     function check(position: number, symlen: number[], onlyTwo: boolean): any {
+        // console.log(wordFormed)
 
         let charAt: string = str.charAt(position);
 
@@ -61,22 +62,25 @@ function checkFunction(str: string): [boolean, string[]] {
                     wordFormed = origwordFormed.slice();
 
                     if (symlen[k] === 1) {
-
                         let oneLetter: string = wordFormed[k];
                         let _position: number = 1;
                         for (let j: number = 0; j < k; j++) _position += symlen[j];
-
+                        
                         for (let j: number = 1; j < sortedSymbols[oneLetter].length; j++) {
-
+                            
                             if (sortedSymbols[oneLetter][j] === str.charAt(_position) && !possible) {
-
+                                
+                                // console.log(k, oneLetter, sortedSymbols[oneLetter][j], str.charAt(_position))
                                 symlen.length = k;
                                 wordFormed.length = k;
+                                // console.log(symlen, wordFormed)
                                 symlen.push(2);
                                 wordFormed.push(oneLetter + sortedSymbols[oneLetter][j]);
+                                // console.log(wordFormed);
 
                                 if (_position + 1 < strlen) {
                                     _position = _position + 1;
+                                    // console.log("reacher");
                                     check(_position, symlen, false);
                                 }
 
